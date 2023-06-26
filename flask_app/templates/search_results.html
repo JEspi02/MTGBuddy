@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <h1 class="text-white">MTGDuelBuddy<br> Welcome, Planeswalker {% if user %} {{ user.first_name }} {{ user.last_name }}!! {% endif %}</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary btn-lg btn-block" href="/user/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/match_start" class="btn btn-warning btn-lg btn-block text-danger">START DUEL</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-secondary btn-lg btn-success" href="/decktoolkit">Deck Toolkit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-secondary btn-lg btn-block" href="/user/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2 class="mb-3">Search Results</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for card in cards %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{{ card.image_url }}" alt="{{ card.name }}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ card.name }}</h5>
+                        <p class="card-text">Mana Cost: {{ card.mana_cost }}</p>
+                        <p class="card-text">Type: {{ card.type }}</p>
+                        <p class="card-text">Text: {{ card.text }}</p>
+                        {% if card.power and card.toughness %}
+                        <p class="card-text">Power/Toughness: {{ card.power }}/{{ card.toughness }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

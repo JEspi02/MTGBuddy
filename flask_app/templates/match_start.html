@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Start</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-secondary">
+    <div class="container text-center">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <h1 class="text-white">MTGDuelBuddy<br> Welcome, Planeswalker {% if user %} {{ user.first_name }} {{ user.last_name }}!! {% endif %}</h1>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary btn-lg btn-block" href="/user/dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-secondary btn-lg btn-success" href="/decktoolkit">Deck Toolkit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-secondary btn-lg btn-block" href="/user/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1 class="text-info mt-5" id="lifepoints-counter">20</h1>
+        <div class="lifepoints">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <button id="minus-1-lifepoints" class="btn btn-danger btn-lg btn-block">-1</button>
+                    </div>
+                    <div class="col-6">
+                        <button id="plus-1-lifepoints" class="btn btn-success btn-lg btn-block">+1</button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <button id="minus-5-lifepoints" class="btn btn-danger btn-lg btn-block">-5</button>
+                    </div>
+                    <div class="col-6">
+                        <button id="plus-5-lifepoints" class="btn btn-success btn-lg btn-block">+5</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dice-roll mt-4">
+            <h1 class="text-warning">Dice Type:</h1>
+            <select id="dice-type">
+                <option value="3">3 Sides</option>
+                <option value="4">4 Sides</option>
+                <option value="6">6 Sides</option>
+                <option value="8">8 Sides</option>
+                <option value="10">10 Sides</option>
+                <option value="12">12 Sides</option>
+                <option value="20">20 Sides</option>
+            </select>
+            <button id="roll-dice" class="btn btn-primary">Roll!</button>
+            <h2 id="dice-result" class="text-warning mt-3"></h2>
+        </div>
+
+        <a href="/user/dashboard" class="end-match-button btn btn-danger btn-lg mt-4">END MATCH</a>
+    </div>
+
+    <script src="static/js/matchstart.js"></script>
+</body>
+</html>

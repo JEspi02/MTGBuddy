@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>LoginRegister</title>
+</head>
+<body class="bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <h1 class="text-white">MTG Duelbuddy<br> Welcome, Planeswalker {% if user %} {{ user.first_name }} {{ user.last_name }}!! {% endif %}</h1>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row justify-content-center mx-auto mt-2">
+            <h1 class="p-0 col-6">MTG Duelbuddy</h1>
+            <h1 class="p-0 col-6">Hello, Planeswalker</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div class="card bg-secondary text-white p-3 mb-3">
+                    <ul class="list-unstyled">
+                        {% for message in messages %}
+                        <li class="mb-2">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endwith %}
+                <form action="/register" method="POST" class="card bg-secondary text-white p-3">
+                    <div class="mb-3">
+                        <label for="first_name" class="form-label text-white">First Name:</label>
+                        <input type="text" name="first_name" id="first_name" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="last_name" class="form-label text-white">Last Name:</label>
+                        <input type="text" name="last_name" id="last_name" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label text-white">Email:</label>
+                        <input type="email" name="email" id="email" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label text-white">Password:</label>
+                        <input type="password" name="password" id="password" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label text-white">Confirm Password:</label>
+                        <input type="password" name="confirm_password" id="confirm_password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-success">Register</button>
+                </form>
+            </div>
+            <div class="col-md-5">
+                <form action="/login" method="POST" class="card bg-secondary text-white p-3 mt-md-0 mt-3">
+                    <div class="mb-3">
+                        <label for="email" class="form-label text-white">Email:</label>
+                        <input type="email" name="email" id="email" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label text-white">Password:</label>
+                        <input type="password" name="password" id="password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

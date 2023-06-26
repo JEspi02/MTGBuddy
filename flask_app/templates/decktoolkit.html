@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We' crossorigin='anonymous'>
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js' integrity='sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj' crossorigin='anonymous'></script>
+    <title>deck toolkit</title>
+</head>
+<body class="bg-secondary">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <h1 class="text-white">MTGDuelBuddy<br> Welcome, Planeswalker {% if user %} {{ user.first_name }} {{ user.last_name }}!! {% endif %}</h1>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary btn-lg btn-block" href="/user/dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/match_start" class="btn btn-warning btn-lg btn-block text-danger">START DUEL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-secondary btn-lg btn-block" href="/user/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container row justify-content-center mx-auto mt-2">
+            <div class="row">
+                <h1 class="p-0 col-6">NEW DECK
+                </h1>
+                <div class="container flex justify-content-between">
+                    <a href="/deck/new" class="btn btn-primary offset-3 col-1" style="height: 100%;">Create a Deck</a>
+                </div>
+            </div>
+            <div class="row">
+                <h4>MY DECKS</h4>
+
+                <table class="table table-dark table-striped table-hover table-sm fs-4 text-center">
+                    <thead>
+                        <tr>
+                            <th>Deck Name</th>
+                            <th>Card Count</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for deck in decks %}
+                            <tr>
+                                <td>{{ deck.deck_name }}</td>
+                                <td>{{ deck.card_count }}</td>
+                                <td>{{ deck.description }}</td>
+                                <td>
+                                    {% if session['user_id'] == deck.user_id %}
+                                    <a href="/deck/edit/{{ deck.id }}" class="btn btn-warning text-danger">Change</a>
+                                    <a href="/deck/destroy/{{ deck.id }}" class="btn btn-danger">Delete</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

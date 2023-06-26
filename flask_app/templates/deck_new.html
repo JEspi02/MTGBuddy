@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We' crossorigin='anonymous'>
+    <title>Deck New</title>
+</head>
+<body class="bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <h1 class="text-white">MTGDuelBuddy<br> Welcome, Planeswalker {% if user %} {{ user.first_name }} {{ user.last_name }}!! {% endif %}</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary btn-lg btn-block" href="/user/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/match_start" class="btn btn-warning btn-lg btn-block text-danger">START DUEL</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-secondary btn-lg btn-success" href="/decktoolkit">Deck Toolkit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-secondary btn-lg btn-block" href="/user/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <h1 class="text-center text-white">New Deck</h1>
+        <div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="alert alert-danger card invalid-feedback mx-0 mb-0 p-1 text-center">{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <form action="/deck/new/process" method="post" class="card bg-secondary text-white p-3" id="deck-form">
+            <div class="row">
+                <div class="col-4 offset-1">
+                    <div class="form-group mb-3">
+                        <label for="deck_name" class="form-label">Deck Name:</label>
+                        <input type="text" name="deck_name" id="deck_name" class="form-control">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea name="description" id="description" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="offset-2 col-4">
+                    <div class="form-group mb-3">
+                        <label for="card_count" class="form-label">Card Count:</label>
+                        <input type="text" name="card_count" id="card_count" class="form-control" readonly value="{{ card_count }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-1">
+                    <div class="form-group mb-3">
+                        <label for="search_card" class="form-label">Search Card:</label>
+                        <input type="text" name="search_card" id="search_card" class="form-control">
+                    </div>
+                    <button type="button" onclick="searchCard(); return false;" class="btn btn-primary btn-lg btn-block">Search</button>
+                </div>
+                <div class="offset-2 col-4">
+                    <div class="form-group mb-3">
+                        <label for="decklist" class="form-label">Deck:</label>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Card Name</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody id="decklist">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <h4>Search Results</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Card Name</th>
+                                <th>Card Type</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="search-results-body">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-1">
+                    <div class="form-group mb-3">
+                        <label for="sideboard" class="form-label">Sideboard:</label>
+                        <textarea name="sideboard" id="sideboard" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-2 border border-1" id="create_button" disabled>Create</button>
+            <input type="hidden" name="deck" id="deck" value="">
+        </form>
+    </div>
+
+    <script src="/static/js/deck.js"></script>
+</body>
+</html>
